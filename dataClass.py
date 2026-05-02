@@ -14,7 +14,7 @@ class personInfo:
         self.password = password
 
 
-    def encrypt(text):
+    def encrypt(self, text):
         encrypted_text = ""
 
         for char in text:
@@ -28,7 +28,7 @@ class personInfo:
         return encrypted_text
     
 
-    def decrypt(encrypted_text):
+    def decrypt(self, encrypted_text):
         decrypted_text = ""
 
         for char in encrypted_text:
