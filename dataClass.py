@@ -8,8 +8,39 @@ class personInfo:
         self.m_birth = m_birth
         self.d_birth = d_birth
         self.gender = gender
+        self.age = 2026 - y_birth
 
         self.email = email
+        self.password = password
+
+
+    def encrypt(self, text):
+        encrypted_text = ""
+
+        for char in text:
+            encrypted_char = (ord(char) + 26)
+            
+            if encrypted_char > 126:
+                encrypted_char -= 94
+
+            encrypted_text += chr(encrypted_char)
+        
+        return encrypted_text
+    
+
+    def decrypt(self, encrypted_text):
+        encrypted_text = ""
+
+        for char in encrypted_text:
+            encrypted_char = (ord(char) - 26)
+            
+            if encrypted_char < 32:
+                encrypted_char += 94
+
+            encrypted_text += chr(encrypted_char)
+        
+        return encrypted_text
+
 
 class dataClass(personInfo):
     def __init__(self, ID, f_name, m_name, l_name, y_birth, m_birth, d_birth):
@@ -29,5 +60,3 @@ class dataClass(personInfo):
         self.prescriptions = {"Medication" : [],}
 
         self.disease_diagnosis = {}
-
-        
