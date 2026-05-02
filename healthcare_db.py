@@ -1,11 +1,4 @@
-# =============================================================================
-# Simplified Healthcare Database System
-# Uses ONLY built-in Python — ZERO imports.
-# =============================================================================
-
-# =============================================================================
-# SECTION 1 — ENCRYPTION & HASHING
-# =============================================================================
+# SECTION 1 — ENCRYPTION
 
 SECRET_KEY = 42
 
@@ -36,9 +29,7 @@ def check_password(entered_password, stored_hash):
     return hash_password(entered_password) == stored_hash
 
 
-# =============================================================================
 # SECTION 2 — VALIDATION
-# =============================================================================
 
 def validate_ohip(ohip):
     if len(ohip) != 10 or not ohip.isdigit():
@@ -56,10 +47,12 @@ def validate_password(password):
     has_upper = False
     has_lower = False
     has_digit = False
+
     for char in password:
         if char.isupper(): has_upper = True
         if char.islower(): has_lower = True
         if char.isdigit(): has_digit = True
+
     if not (has_upper and has_lower and has_digit):
         raise ValueError("Password must contain uppercase, lowercase, and a number.")
 
@@ -72,12 +65,10 @@ ROLE_PERMISSIONS = {
 }
 
 
-# =============================================================================
 # SECTION 3 — AUDIT LOG
-# =============================================================================
 
 audit_log = []
-audit_counter = 1 # Simple counter to track events
+audit_counter = 1 # Simple counter to track changes
 
 def log_event(action, who, what, record_id):
     global audit_counter
@@ -94,14 +85,13 @@ def log_event(action, who, what, record_id):
 
 
 def check_permission(role, permission, who, record_id):
+
     if permission not in ROLE_PERMISSIONS.get(role, []):
         log_event("ACCESS DENIED", who, permission, record_id)
         raise PermissionError(f"'{role}' does not have '{permission}' permission.")
 
 
-# =============================================================================
 # SECTION 4 — PERSON INFO & PATIENT RECORD
-# =============================================================================
 
 class PatientRecord:
     def __init__(self, ohip, f_name, l_name, y_birth, gender, email, password):
@@ -207,9 +197,7 @@ class PatientDatabase:
         return patient
 
 
-# =============================================================================
 # DEMO
-# =============================================================================
 
 if __name__ == "__main__":
     print("=== Simplified Healthcare Database ===\n")
@@ -220,9 +208,9 @@ if __name__ == "__main__":
     # 1. Create Patient
     patient = PatientRecord(
         ohip="1234567890",
-        f_name="Jane", 
+        f_name="Jane",
         l_name="Doe",
-        y_birth=1985, 
+        y_birth=1985,
         gender="female",
         email="jane.doe@email.com",
         password="SecurePass1"
