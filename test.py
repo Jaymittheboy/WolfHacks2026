@@ -13,20 +13,20 @@ def encrypt(text):
     
 
 def decrypt(encrypted_text):
-    encrypted_text = ""
+    decrypted_text = ""
 
     for char in encrypted_text:
-        encrypted_char = (ord(char) - 26)
+        decrypted_char = (ord(char) - 26)
         
-        if encrypted_char < 33:
-            encrypted_char += 94
+        if decrypted_char < 32:
+            decrypted_char += 94
 
-        encrypted_text += chr(encrypted_char)
+        decrypted_text += chr(decrypted_char)
     
-    return encrypted_text
+    return decrypted_text
 
 
-text = "Hello, World!"
+text = "Password : 13'a]d"
 print(text)
 
 encrypted_text = encrypt(text)

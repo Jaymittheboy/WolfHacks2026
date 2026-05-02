@@ -1,31 +1,25 @@
+SECRET_KEY = 42  # Change this number to make your encryption unique
+
+def encrypt(text):
+    result = ""
+    for char in str(text):
+        shifted = ord(char) + SECRET_KEY
+        if shifted > 126:
+            shifted -= 94
+        result += chr(shifted)
+    return result
+
+def decrypt(text):
+    result = ""
+    for char in text:
+        shifted = ord(char) - SECRET_KEY
+        if shifted < 32:
+            shifted += 94
+        result += chr(shifted)
+    return result
+
+
 class personInfo:
-    def encrypt(self, text):
-        encrypted_text = ""
-
-        for char in text:
-            encrypted_char = (ord(char) + 26)
-            
-            if encrypted_char > 126:
-                encrypted_char -= 94
-
-            encrypted_text += chr(encrypted_char)
-        
-        return encrypted_text
-    
-    def decrypt(self, encrypted_text):
-        decrypted_text = ""
-
-        for char in encrypted_text:
-            decrypted_char = (ord(char) - 26)
-            
-            if decrypted_char < 32:
-                decrypted_char += 94
-
-            decrypted_text += chr(decrypted_char)
-        
-        return decrypted_text
-
-    
     def __init__(self, OHIP, f_name, m_name, l_name, y_birth, m_birth, d_birth, gender, email, password):
         self.OHIP = self.encrypt(OHIP)
         self.f_name = self.encrypt(f_name)
@@ -39,6 +33,12 @@ class personInfo:
 
         self.email = self.encrypt(email)
         self.password = self.encrypt(password)
+
+        self.phone = self.encrypt(phone)
+        self.address = self.encrypt(address)
+        self.emergency_contact = self.encrypt(emergency_contact)
+        self.insurance_provider = self.encrypt(insurance_id)
+        self.primary_physician = self.encrypt(physician_name)
 
 class dataClass(personInfo):
     def __init__(self, ID, f_name, m_name, l_name, y_birth, m_birth, d_birth):
